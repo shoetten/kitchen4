@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-
-const data = new Map()
-  .set('ikea', new Map()
-    .set(1, { description: 'Unterbau Schränke und Schubladen', price: 3000, link: 'https://www.ikea.com/de/de/cat/metod-einzelteile-23598/' })
-  )
-  .set('arbeitsplatte', new Map()
-    .set(1, { description: 'Eiche Leimholz Keilgezinkt', price: 550, link: 'https://www.leipziger-kistenfabrik.de/produkte/plattenwerkstoffe/leimholz/' })
-    .set(2, { description: 'Nussbaum Leimholz Keilgezinkt', price: 650, link: 'https://www.leipziger-kistenfabrik.de/produkte/plattenwerkstoffe/leimholz/' })
-  )
+import data from './data'
 
 const selectedOptions = ref(Object.fromEntries([...data.keys()].map((key) => [key, 0])))
 
@@ -58,7 +50,7 @@ watch(selectedOptions, () => {
             <td>{{ totalPricePerMonth.toFixed(2) }} €</td>
           </tr>
           <tr>
-            <td>Pro Person (durchschnittlich)</td>
+            <td>Pro Person/Monat (durchschnittlich)</td>
             <td>{{ totalPricePerMonthAndPerson.toFixed(2) }} €</td>
           </tr>
       </tbody>
@@ -74,19 +66,19 @@ watch(selectedOptions, () => {
               <th></th>
               <th class="desc">Beschreibung</th>
               <th class="price">Preis</th>
-              <th>Link</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="[key, item] in items">
-              <td>
+              <td class="radio-field">
                 <input type="radio" :id="`${category}-${key}`" :name="category" :value="key" v-model.number="selectedOptions[category]">
               </td>
               <td class="desc">
                 <label :for="`${category}-${key}`">{{ item.description }}</label>
               </td>
-              <td class="price">{{ item.price }} €</td>
-              <td><a :href="item.link" target="_blank">Link</a></td>
+              <td class="price">{{ item.price.toFixed(2) }} €</td>
+              <td><a v-if="item.link" :href="item.link" target="_blank">Link</a></td>
             </tr>
           </tbody>
         </table>
@@ -99,10 +91,12 @@ watch(selectedOptions, () => {
 .items .item-title {
   text-transform: capitalize;
 }
+.radio-field { width: 7%; }
 .desc {
   width: 70%;
 }
 .price {
   min-width: 6rem;
+  width: 15%;
 }
 </style>
