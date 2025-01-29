@@ -39,39 +39,43 @@ watch(selectedOptions, () => {
 
 <template>
   <header class="container">
-    <h1>Kitchen4</h1>
+    <h1>Kitchen4 Rechner</h1>
   </header>
   <main class="container">
     <section>
       <table>
-        <tr>
-          <td>Gesamtkosten</td>
-          <td>{{ totalPrice.toFixed(2) }} €</td>
-        </tr>
-        <tr>
-          <td>Umgelegt auf Jahre</td>
-          <td><input type="number" v-model="years"></td>
-        </tr>
-        <tr>
-          <td>Pro Monat</td>
-          <td>{{ totalPricePerMonth.toFixed(2) }} €</td>
-        </tr>
-        <tr>
-          <td>Pro Person (durchschnittlich)</td>
-          <td>{{ totalPricePerMonthAndPerson.toFixed(2) }} €</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>Gesamtkosten</td>
+            <td>{{ totalPrice.toFixed(2) }} €</td>
+          </tr>
+          <tr>
+            <td>Umgelegt auf Jahre</td>
+            <td><input type="number" v-model="years"></td>
+          </tr>
+          <tr>
+            <td>Pro Monat</td>
+            <td>{{ totalPricePerMonth.toFixed(2) }} €</td>
+          </tr>
+          <tr>
+            <td>Pro Person (durchschnittlich)</td>
+            <td>{{ totalPricePerMonthAndPerson.toFixed(2) }} €</td>
+          </tr>
+      </tbody>
       </table>
     </section>
     <h2>Posten</h2>
-    <section v-for="[category, items] in data">
+    <section v-for="[category, items] in data" class="items">
       <form>
-        <h3>{{ category }}</h3>
+        <h3 class="item-title">{{ category }}</h3>
         <table class="striped">
           <thead>
-            <th></th>
-            <th class="desc">Beschreibung</th>
-            <th class="price">Preis</th>
-            <th>Link</th>
+            <tr>
+              <th></th>
+              <th class="desc">Beschreibung</th>
+              <th class="price">Preis</th>
+              <th>Link</th>
+            </tr>
           </thead>
           <tbody>
             <tr v-for="[key, item] in items">
@@ -92,6 +96,9 @@ watch(selectedOptions, () => {
 </template>
 
 <style scoped>
+.items .item-title {
+  text-transform: capitalize;
+}
 .desc {
   width: 70%;
 }
