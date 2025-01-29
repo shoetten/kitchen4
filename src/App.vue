@@ -14,6 +14,12 @@ const selectedOptions = ref(Object.fromEntries([...data.keys()].map((key) => [ke
 
 const years = ref(5)
 
+const selectedParams = new URL(document.URL).searchParams
+Object.keys(selectedOptions.value).forEach((key) => {
+  const selectedId = selectedParams.get(key) || data.get(key).keys().next().value
+  selectedOptions.value[key] = parseInt(selectedId)
+})
+
 const totalPrice = computed(() => (
   Object.entries(selectedOptions.value).reduce((sum, [key, id]) => {
     const price = data.get(key).get(id)?.price || 0
@@ -22,6 +28,13 @@ const totalPrice = computed(() => (
 ))
 const totalPricePerMonth = computed(() => (totalPrice.value / (years.value * 12)))
 const totalPricePerMonthAndPerson = computed(() => totalPricePerMonth.value / 9)
+
+watch(selectedOptions, () => {
+  const params = new URLSearchParams(selectedOptions.value)
+  window.history.replaceState(null, "", `?${params.toString()}`)
+}, {
+  deep: true,
+})
 </script>
 
 <template>
