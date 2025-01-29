@@ -15,7 +15,7 @@ jobs:
           node-version: 22
           cache: 'npm'
       - run: npm install
-      - run: npm run build
+      - run: npm run build -- --base=/kitchen4
       - name: Upload static files as artifact
         uses: actions/upload-pages-artifact@v3
         with:
