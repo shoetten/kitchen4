@@ -1,6 +1,6 @@
 export default new Map()
   .set('ikea', new Map()
-    .set(1, { description: 'Unterbau Schränke, Schubladen und Spüle', price: 3000, link: 'https://www.ikea.com/de/de/cat/metod-einzelteile-23598/' })
+    .set(1, { description: 'Unterbau Schränke, Schubladen und Spüle', price: 1700, link: 'https://www.ikea.com/de/de/cat/metod-einzelteile-23598/' })
   )
   .set('baumarkt', new Map()
     .set(1, { description: 'Pauschale für Holz, Schrauben, etc', price: 200, link: '' })
